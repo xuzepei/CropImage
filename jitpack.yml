@@ -1,5 +1,2 @@
 jdk:
-  - openjdk20
-
-install:
-  - ./gradlew clean assembleRelease
+  - openjdk17
