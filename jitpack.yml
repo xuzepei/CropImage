@@ -2,5 +2,4 @@ jdk:
   - openjdk17
 
 install:
-  - ./gradlew clean
-  - ./gradlew assemble
+  - ./gradlew clean assemble
