@@ -1,0 +1,9 @@
+jdk:
+  - openjdk20
+
+env:
+  global:
+    - GRADLE_OPTS="-Xms512m -Xmx1024m"
+
+install:
+  - ./gradlew clean assembleRelease

@@ -1,0 +1,65 @@
+plugins {
+    alias(libs.plugins.android.library)
+}
+android {
+    namespace 'com.cropimage.imaging'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 29
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}
+
+apply plugin: "maven-publish"
+//publishing { // 发布配置
+//    publications { // 发布的内容
+//        register<MavenPublication>("release") { // 注册一个名字为 release 的发布内容
+//            groupId = 'com.cropimage'
+//            artifactId = 'imaging'
+//            version = '1.0.0'
+//
+//            afterEvaluate { // 在所有的配置都完成之后执行
+//                // 从当前 module 的 release 包中发布
+//                from(components["release"])
+//            }
+//        }
+//    }
+//}
+afterEvaluate {
+    android.libraryVariants.each {variant->
+        publishing.publications.create(variant.name,MavenPublication){
+            from components.findByName(variant.name)
+            groupId = 'com.github.xuzepei'//自定义
+            artifactId = 'cropimage'//自定义
+            version = '1.0.0'//自定义
+        }
+    }
+}
