@@ -38,13 +38,21 @@ dependencies {
 }
 
 apply plugin: "maven-publish"
-afterEvaluate {
-    android.libraryVariants.each {variant->
-        publishing.publications.create(variant.name,MavenPublication){
-            from components.findByName(variant.name)
-            groupId = 'com.github.xuzepei'//自定义
-            artifactId = 'imaging'//library名
-            version = '1.0.1'//自定义
+publishing {
+
+    publications {
+        release(MavenPublication) {
+            from components.findByName('release')
+
+            groupId = 'com.cropimage'
+            artifactId = 'imaging'
+            version = '1.0.0'
+        }
+    }
+
+    repositories {
+        maven {
+            url "$buildDir/repo"
         }
     }
 }
